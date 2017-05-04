@@ -1,0 +1,50 @@
+#######################  Changelog Toko Online WordPress Theme ######################
+
+= 1.9 March 25, 2015 =
+* Change Text Footer
+* Remove tags custom background
+* More responsive on 481px
+
+= 1.8 January 12, 2015 =
+* Remove variable $default_text_color on custom-header.php
+
+= 1.7 January 11, 2015 =
+* Remove all customizer functions on custom-header.php
+
+= 1.6 January 11, 2015 =
+* Remove all customizer functions
+* No need customizer
+
+= 1.5 January 7, 2015 =
+* Declare licenses of any resources included such as JS files readme.txt
+* Change Screenshot size must be 880x 660px.
+* Change Roboto font to Lato
+* Remove custom background
+* Custom Image Header now working.
+
+= 1.4 December 18, 2014 =
+* Credit on style.css underscore http://underscores.me/
+
+= 1.3 December 5th 2014 =
+* Fixed eror when wp_debug true, and test with debogger plugin
+* More documentation on code in order  to make easy for developer
+* Change screenshot
+* Make default header image more flexible
+* Sidebar and  navigation now fixed and fully responsive
+* Change google font style with generic sans-serif, better for readability
+
+
+= 1.2 December 3th 2014 =
+* Indentation all code for readability
+* Follow WordPress theme review standart
+* Put docs on all the code for better WordPress Theme
+* Fixed all eror when wp_debug activated
+* New default header image, all license declare on readme.txt
+* Fixed sidebar width
+* Fixed eror on search result page
+
+= 1.1 December 2th 2014 =
+* Put Link Footer
+
+= 1.0 December 2th 2014 =
+* Initial Release
