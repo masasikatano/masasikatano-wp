@@ -1,0 +1,77 @@
+[04-Jun-2017 03:00:14 UTC] PHP Warning:  in_array() expects parameter 2 to be array, boolean given in /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_option_view7.php on line 214
+[04-Jun-2017 03:00:14 UTC] PHP Stack trace:
+[04-Jun-2017 03:00:14 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/admin.php:0
+[04-Jun-2017 03:00:14 UTC] PHP   2. do_action() /home/ubuntu/workspace/wp-admin/admin.php:222
+[04-Jun-2017 03:00:14 UTC] PHP   3. WP_Hook->do_action() /home/ubuntu/workspace/wp-includes/plugin.php:453
+[04-Jun-2017 03:00:14 UTC] PHP   4. WP_Hook->apply_filters() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:323
+[04-Jun-2017 03:00:14 UTC] PHP   5. call_user_func_array:{/home/ubuntu/workspace/wp-includes/class-wp-hook.php:298}() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:298
+[04-Jun-2017 03:00:14 UTC] PHP   6. sfsi_options_page() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:298
+[04-Jun-2017 03:00:14 UTC] PHP   7. include() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/libs/sfsi_install_uninstall.php:443
+[04-Jun-2017 03:00:14 UTC] PHP   8. include() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_options_view.php:107
+[04-Jun-2017 03:00:14 UTC] PHP   9. in_array() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_option_view7.php:214
+[04-Jun-2017 03:00:14 UTC] PHP Warning:  in_array() expects parameter 2 to be array, boolean given in /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_option_view7.php on line 214
+[04-Jun-2017 03:00:14 UTC] PHP Stack trace:
+[04-Jun-2017 03:00:14 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/admin.php:0
+[04-Jun-2017 03:00:14 UTC] PHP   2. do_action() /home/ubuntu/workspace/wp-admin/admin.php:222
+[04-Jun-2017 03:00:14 UTC] PHP   3. WP_Hook->do_action() /home/ubuntu/workspace/wp-includes/plugin.php:453
+[04-Jun-2017 03:00:14 UTC] PHP   4. WP_Hook->apply_filters() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:323
+[04-Jun-2017 03:00:14 UTC] PHP   5. call_user_func_array:{/home/ubuntu/workspace/wp-includes/class-wp-hook.php:298}() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:298
+[04-Jun-2017 03:00:14 UTC] PHP   6. sfsi_options_page() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:298
+[04-Jun-2017 03:00:14 UTC] PHP   7. include() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/libs/sfsi_install_uninstall.php:443
+[04-Jun-2017 03:00:14 UTC] PHP   8. include() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_options_view.php:107
+[04-Jun-2017 03:00:14 UTC] PHP   9. in_array() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_option_view7.php:214
+[04-Jun-2017 03:00:14 UTC] PHP Warning:  in_array() expects parameter 2 to be array, boolean given in /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_option_view7.php on line 214
+[04-Jun-2017 03:00:14 UTC] PHP Stack trace:
+[04-Jun-2017 03:00:14 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/admin.php:0
+[04-Jun-2017 03:00:14 UTC] PHP   2. do_action() /home/ubuntu/workspace/wp-admin/admin.php:222
+[04-Jun-2017 03:00:14 UTC] PHP   3. WP_Hook->do_action() /home/ubuntu/workspace/wp-includes/plugin.php:453
+[04-Jun-2017 03:00:14 UTC] PHP   4. WP_Hook->apply_filters() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:323
+[04-Jun-2017 03:00:14 UTC] PHP   5. call_user_func_array:{/home/ubuntu/workspace/wp-includes/class-wp-hook.php:298}() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:298
+[04-Jun-2017 03:00:14 UTC] PHP   6. sfsi_options_page() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:298
+[04-Jun-2017 03:00:14 UTC] PHP   7. include() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/libs/sfsi_install_uninstall.php:443
+[04-Jun-2017 03:00:14 UTC] PHP   8. include() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_options_view.php:107
+[04-Jun-2017 03:00:14 UTC] PHP   9. in_array() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_option_view7.php:214
+[04-Jun-2017 03:00:14 UTC] PHP Warning:  in_array() expects parameter 2 to be array, boolean given in /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_option_view7.php on line 214
+[04-Jun-2017 03:00:14 UTC] PHP Stack trace:
+[04-Jun-2017 03:00:14 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/admin.php:0
+[04-Jun-2017 03:00:14 UTC] PHP   2. do_action() /home/ubuntu/workspace/wp-admin/admin.php:222
+[04-Jun-2017 03:00:14 UTC] PHP   3. WP_Hook->do_action() /home/ubuntu/workspace/wp-includes/plugin.php:453
+[04-Jun-2017 03:00:14 UTC] PHP   4. WP_Hook->apply_filters() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:323
+[04-Jun-2017 03:00:14 UTC] PHP   5. call_user_func_array:{/home/ubuntu/workspace/wp-includes/class-wp-hook.php:298}() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:298
+[04-Jun-2017 03:00:14 UTC] PHP   6. sfsi_options_page() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:298
+[04-Jun-2017 03:00:14 UTC] PHP   7. include() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/libs/sfsi_install_uninstall.php:443
+[04-Jun-2017 03:00:14 UTC] PHP   8. include() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_options_view.php:107
+[04-Jun-2017 03:00:14 UTC] PHP   9. in_array() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_option_view7.php:214
+[04-Jun-2017 03:00:14 UTC] PHP Warning:  in_array() expects parameter 2 to be array, boolean given in /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_option_view7.php on line 214
+[04-Jun-2017 03:00:14 UTC] PHP Stack trace:
+[04-Jun-2017 03:00:14 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/admin.php:0
+[04-Jun-2017 03:00:14 UTC] PHP   2. do_action() /home/ubuntu/workspace/wp-admin/admin.php:222
+[04-Jun-2017 03:00:14 UTC] PHP   3. WP_Hook->do_action() /home/ubuntu/workspace/wp-includes/plugin.php:453
+[04-Jun-2017 03:00:14 UTC] PHP   4. WP_Hook->apply_filters() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:323
+[04-Jun-2017 03:00:14 UTC] PHP   5. call_user_func_array:{/home/ubuntu/workspace/wp-includes/class-wp-hook.php:298}() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:298
+[04-Jun-2017 03:00:14 UTC] PHP   6. sfsi_options_page() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:298
+[04-Jun-2017 03:00:14 UTC] PHP   7. include() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/libs/sfsi_install_uninstall.php:443
+[04-Jun-2017 03:00:14 UTC] PHP   8. include() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_options_view.php:107
+[04-Jun-2017 03:00:14 UTC] PHP   9. in_array() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_option_view7.php:214
+[04-Jun-2017 03:00:14 UTC] PHP Warning:  in_array() expects parameter 2 to be array, boolean given in /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_option_view7.php on line 214
+[04-Jun-2017 03:00:14 UTC] PHP Stack trace:
+[04-Jun-2017 03:00:14 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/admin.php:0
+[04-Jun-2017 03:00:14 UTC] PHP   2. do_action() /home/ubuntu/workspace/wp-admin/admin.php:222
+[04-Jun-2017 03:00:14 UTC] PHP   3. WP_Hook->do_action() /home/ubuntu/workspace/wp-includes/plugin.php:453
+[04-Jun-2017 03:00:14 UTC] PHP   4. WP_Hook->apply_filters() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:323
+[04-Jun-2017 03:00:14 UTC] PHP   5. call_user_func_array:{/home/ubuntu/workspace/wp-includes/class-wp-hook.php:298}() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:298
+[04-Jun-2017 03:00:14 UTC] PHP   6. sfsi_options_page() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:298
+[04-Jun-2017 03:00:14 UTC] PHP   7. include() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/libs/sfsi_install_uninstall.php:443
+[04-Jun-2017 03:00:14 UTC] PHP   8. include() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_options_view.php:107
+[04-Jun-2017 03:00:14 UTC] PHP   9. in_array() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_option_view7.php:214
+[04-Jun-2017 03:00:14 UTC] PHP Warning:  in_array() expects parameter 2 to be array, boolean given in /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_option_view7.php on line 214
+[04-Jun-2017 03:00:14 UTC] PHP Stack trace:
+[04-Jun-2017 03:00:14 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/admin.php:0
+[04-Jun-2017 03:00:14 UTC] PHP   2. do_action() /home/ubuntu/workspace/wp-admin/admin.php:222
+[04-Jun-2017 03:00:14 UTC] PHP   3. WP_Hook->do_action() /home/ubuntu/workspace/wp-includes/plugin.php:453
+[04-Jun-2017 03:00:14 UTC] PHP   4. WP_Hook->apply_filters() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:323
+[04-Jun-2017 03:00:14 UTC] PHP   5. call_user_func_array:{/home/ubuntu/workspace/wp-includes/class-wp-hook.php:298}() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:298
+[04-Jun-2017 03:00:14 UTC] PHP   6. sfsi_options_page() /home/ubuntu/workspace/wp-includes/class-wp-hook.php:298
+[04-Jun-2017 03:00:14 UTC] PHP   7. include() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/libs/sfsi_install_uninstall.php:443
+[04-Jun-2017 03:00:14 UTC] PHP   8. include() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_options_view.php:107
+[04-Jun-2017 03:00:14 UTC] PHP   9. in_array() /home/ubuntu/workspace/wp-content/plugins/ultimate-social-media-icons/views/sfsi_option_view7.php:214
