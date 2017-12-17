@@ -47,7 +47,7 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 				}
 			}
 			$this->client = new Deconf_Client( $config );
-			$this->client->setScopes( array( 'https://www.googleapis.com/auth/analytics.readonly', 'https://www.googleapis.com/auth/analytics.edit' ) );
+			$this->client->setScopes( array( 'https://www.googleapis.com/auth/analytics.readonly' ) );
 			$this->client->setAccessType( 'offline' );
 			$this->client->setApplicationName( 'Google Analytics Dashboard' );
 			$this->client->setRedirectUri( 'urn:ietf:wg:oauth:2.0:oob' );
@@ -67,15 +67,19 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 				if ( $token ) {
 					try {
 						$this->client->setAccessToken( $token );
-						$gadwp->config->options['ga_dash_token'] = $this->client->getAccessToken();
+						if ( $this->client->isAccessTokenExpired() ) {
+							$refreshtoken = $this->client->getRefreshToken();
+							$this->client->refreshToken( $refreshtoken );
+						}						
+						$this->gadwp->config->options['ga_dash_token'] = $this->client->getAccessToken();
 					} catch ( Deconf_IO_Exception $e ) {
-						GADWP_Tools::set_cache( 'ga_dash_lasterror', date( 'Y-m-d H:i:s' ) . ': ' . esc_html( $e ), $this->error_timeout );
+						GADWP_Tools::set_cache( 'last_error', date( 'Y-m-d H:i:s' ) . ': ' . esc_html( $e ), $this->error_timeout );
 					} catch ( Deconf_Service_Exception $e ) {
-						GADWP_Tools::set_cache( 'ga_dash_lasterror', date( 'Y-m-d H:i:s' ) . ': ' . esc_html( "(" . $e->getCode() . ") " . $e->getMessage() ), $this->error_timeout );
-						GADWP_Tools::set_cache( 'ga_dash_gapi_errors', array( $e->getCode(), (array) $e->getErrors() ), $this->error_timeout );
+						GADWP_Tools::set_cache( 'last_error', date( 'Y-m-d H:i:s' ) . ': ' . esc_html( "(" . $e->getCode() . ") " . $e->getMessage() ), $this->error_timeout );
+						GADWP_Tools::set_cache( 'gapi_errors', array( $e->getCode(), (array) $e->getErrors() ), $this->error_timeout );
 						$this->reset_token();
 					} catch ( Exception $e ) {
-						GADWP_Tools::set_cache( 'ga_dash_lasterror', date( 'Y-m-d H:i:s' ) . ': ' . esc_html( $e ), $this->error_timeout );
+						GADWP_Tools::set_cache( 'last_error', date( 'Y-m-d H:i:s' ) . ': ' . esc_html( $e ), $this->error_timeout );
 						$this->reset_token();
 					}
 					if ( is_multisite() && $this->gadwp->config->options['ga_dash_network'] ) {
@@ -101,16 +105,19 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 		 */
 		public function gapi_errors_handler() {
 			$errors = GADWP_Tools::get_cache( 'gapi_errors' );
+
 			if ( false === $errors || ! isset( $errors[0] ) ) { // invalid error
 				return false;
 			}
-			if ( isset( $errors[1][0]['reason'] ) && ( 'invalidCredentials' == $errors[1][0]['reason'] || 'authError' == $errors[1][0]['reason'] || 'insufficientPermissions' == $errors[1][0]['reason'] || 'required' == $errors[1][0]['reason'] || 'keyExpired' == $errors[1][0]['reason'] ) ) {
+
+			if ( isset( $errors[1][0]['reason'] ) && ( 'badRequest' == $errors[1][0]['reason'] || 'accessNotConfigured' == $errors[1][0]['reason'] || 'invalidCredentials' == $errors[1][0]['reason'] || 'authError' == $errors[1][0]['reason'] || 'insufficientPermissions' == $errors[1][0]['reason'] || 'required' == $errors[1][0]['reason'] || 'keyExpired' == $errors[1][0]['reason'] ) ) {
 				$this->reset_token( false );
 				return true;
 			}
+
 			if ( isset( $errors[1][0]['reason'] ) && ( 'userRateLimitExceeded' == $errors[1][0]['reason'] || 'quotaExceeded' == $errors[1][0]['reason'] ) ) {
 				if ( $this->gadwp->config->options['api_backoff'] <= 5 ) {
-					usleep( rand( 100000, 1500000 ) );
+					usleep( rand( 1000000, 4500000 ) );
 					$this->gadwp->config->options['api_backoff'] = $this->gadwp->config->options['api_backoff'] + 1;
 					$this->gadwp->config->set_plugin_options();
 					return false;
@@ -118,9 +125,11 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 					return true;
 				}
 			}
-			if ( 400 == $errors[0] || 401 == $errors[0] || 403 == $errors[0] ) {
+
+			if ( 500 == $errors[0] || 503 == $errors[0] || 400 == $errors[0] || 401 == $errors[0] || 403 == $errors[0] ) {
 				return true;
 			}
+
 			return false;
 		}
 
@@ -270,8 +279,6 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 					} else {
 						GADWP_Tools::set_cache( $serial, $data, $this->get_timeouts( $daily ) );
 					}
-					$this->gadwp->config->options['api_backoff'] = 0;
-					$this->gadwp->config->set_plugin_options();
 				} else {
 					$data = $transient;
 				}
@@ -283,12 +290,15 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 				GADWP_Tools::set_cache( 'last_error', date( 'Y-m-d H:i:s' ) . ': ' . esc_html( $e ), $this->error_timeout );
 				return $e->getCode();
 			}
+
+			$this->gadwp->config->options['api_backoff'] = 0;
+			$this->gadwp->config->set_plugin_options();
+
 			if ( $data->getRows() > 0 ) {
 				return $data;
 			} else {
 				$data->rows = array();
 				return $data;
-				// return - 21;
 			}
 		}
 
@@ -359,6 +369,7 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 				return $data;
 			}
 			if ( empty( $data->rows ) ) {
+				// unable to render it as an Area Chart, returns a numeric value to be handled by reportsx.js
 				return - 21;
 			}
 			$gadwp_data = array( array( $dayorhour, $title ) );
@@ -413,11 +424,7 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 			$serial = 'qr3_' . $this->get_serial( $projectId . $from . $filter );
 			$data = $this->handle_corereports( $projectId, $from, $to, $metrics, $options, $serial );
 			if ( is_numeric( $data ) ) {
-				if ( - 21 == $data or empty( $data->rows ) ) {
-					return array_fill( 0, 9, 0 );
-				} else {
-					return $data;
-				}
+				return $data;
 			}
 			$gadwp_data = array();
 			foreach ( $data->getRows() as $row ) {
@@ -425,25 +432,25 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 			}
 
 			// i18n support
-			$gadwp_data[0] = number_format_i18n( $gadwp_data[0] );
-			$gadwp_data[1] = number_format_i18n( $gadwp_data[1] );
-			$gadwp_data[2] = number_format_i18n( $gadwp_data[2] );
-			$gadwp_data[3] = number_format_i18n( $gadwp_data[3], 2 ) . '%';
-			$gadwp_data[4] = number_format_i18n( $gadwp_data[4] );
-			$gadwp_data[5] = number_format_i18n( $gadwp_data[5], 2 );
-			$gadwp_data[6] = gmdate( "H:i:s", $gadwp_data[6] );
-			$gadwp_data[7] = number_format_i18n( $gadwp_data[7], 2 );
+			$gadwp_data[0] = isset( $gadwp_data[0] ) ? number_format_i18n( $gadwp_data[0] ) : 0;
+			$gadwp_data[1] = isset( $gadwp_data[1] ) ? number_format_i18n( $gadwp_data[1] ) : 0;
+			$gadwp_data[2] = isset( $gadwp_data[2] ) ? number_format_i18n( $gadwp_data[2] ) : 0;
+			$gadwp_data[3] = isset( $gadwp_data[3] ) ? number_format_i18n( $gadwp_data[3], 2 ) . '%' : '0%';
+			$gadwp_data[4] = isset( $gadwp_data[4] ) ? number_format_i18n( $gadwp_data[4] ) : 0;
+			$gadwp_data[5] = isset( $gadwp_data[5] ) ? number_format_i18n( $gadwp_data[5], 2 ) : 0;
+			$gadwp_data[6] = isset( $gadwp_data[6] ) ? gmdate( "H:i:s", $gadwp_data[6] ) : '00:00:00';
+			$gadwp_data[7] = isset( $gadwp_data[7] ) ? number_format_i18n( $gadwp_data[7], 2 ) : 0;
 			if ( $filter ) {
-				$gadwp_data[8] = number_format_i18n( $gadwp_data[8], 2 ) . '%';
+				$gadwp_data[8] = isset( $gadwp_data[8] ) ? number_format_i18n( $gadwp_data[8], 2 ) . '%' : '0%';
 			} else {
-				$gadwp_data[8] = gmdate( "H:i:s", $gadwp_data[8] );
+				$gadwp_data[8] = isset( $gadwp_data[8] ) ? gmdate( "H:i:s", $gadwp_data[8] ) : '00:00:00';
 			}
 
 			return $gadwp_data;
 		}
 
 		/**
-		 * Analytics data for Org Charts & Table Charts (content pages)
+		 * Analytics data for Table Charts (content pages)
 		 *
 		 * @param
 		 *            $projectId
@@ -505,7 +512,7 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 		}
 
 		/**
-		 * Analytics data for Org Charts & Table Charts (referrers)
+		 * Analytics data for Table Charts (referrers)
 		 *
 		 * @param
 		 *            $projectId
@@ -539,7 +546,7 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 		}
 
 		/**
-		 * Analytics data for Org Charts & Table Charts (searches)
+		 * Analytics data for Table Charts (searches)
 		 *
 		 * @param
 		 *            $projectId
@@ -574,7 +581,7 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 		}
 
 		/**
-		 * Analytics data for Org Charts & Table Charts (location reports)
+		 * Analytics data for Table Charts (location reports)
 		 *
 		 * @param
 		 *            $projectId
@@ -590,7 +597,7 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 			$metrics = 'ga:' . $metric;
 			$options = "";
 			$title = __( "Countries", 'google-analytics-dashboard-for-wp' );
-			$serial = 'qr7_' . $this->get_serial( $projectId . $from . $filter );
+			$serial = 'qr7_' . $this->get_serial( $projectId . $from . $filter . $metric );
 			$dimensions = 'ga:country';
 			$local_filter = '';
 			if ( $this->gadwp->config->options['ga_target_geomap'] ) {
@@ -658,6 +665,7 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 				return $data;
 			}
 			if ( empty( $data->rows ) ) {
+				// unable to render as an Org Chart, returns a numeric value to be handled by reportsx.js
 				return - 21;
 			}
 			$block = ( 'channelGrouping' == $query ) ? __( "Channels", 'google-analytics-dashboard-for-wp' ) : __( "Devices", 'google-analytics-dashboard-for-wp' );
@@ -785,8 +793,6 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 					}
 					$data = $this->service->data_realtime->get( 'ga:' . $projectId, $metrics, array( 'dimensions' => $dimensions, 'quotaUser' => $this->managequota . 'p' . $projectId ) );
 					GADWP_Tools::set_cache( $serial, $data, 55 );
-					$this->gadwp->config->options['api_backoff'] = 0;
-					$this->gadwp->config->set_plugin_options();
 				} else {
 					$data = $transient;
 				}
@@ -804,9 +810,13 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 			$i = 0;
 			$gadwp_data = $data;
 			foreach ( $data->getRows() as $row ) {
-				$gadwp_data->rows[$i] = array_map( 'esc_html', $row );
+				$gadwp_data->rows[$i] = array_map( 'wp_kses_data', $row );
 				$i++;
 			}
+
+			$this->gadwp->config->options['api_backoff'] = 0;
+			$this->gadwp->config->set_plugin_options();
+
 			return array( $gadwp_data );
 		}
 

@@ -59,6 +59,7 @@ class PluginConfig{
         'editorAutowidth' => false,
         'editorQuicktagMode' => 'html',
         'editorAddStyleFormats' => true,
+        'editorTabIndentation' => false,
 
         'customThemeBase' => 'standard',
         'customFontFamily' => 'Monaco, Courier, Monospace',

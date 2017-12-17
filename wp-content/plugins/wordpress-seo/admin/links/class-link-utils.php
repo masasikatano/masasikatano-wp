@@ -14,19 +14,26 @@ class WPSEO_Link_Utils {
 	 * @return array The supported public post types.
 	 */
 	public static function get_public_post_types() {
-		$public_post_types = get_post_types( array( 'public' => true ) );
+		_deprecated_function( __METHOD__, '5.9', 'WPSEO_Post_Type::get_accessible_post_types' );
 
-		return array_filter( $public_post_types, array( __CLASS__, 'filter_post_types' ) );
+		return WPSEO_Post_Type::filter_attachment_post_type( WPSEO_Post_Type::get_accessible_post_types() );
 	}
 
 	/**
-	 * Filters the post types to remove unwanted items.
+	 * Returns the value that is part of the given url.
 	 *
-	 * @param string $public_post_type The post type to filter.
+	 * @param string $url  The url to parse.
+	 * @param string $part The url part to use.
 	 *
-	 * @return bool Returns true if it is kept, false if removed.
+	 * @return string The value of the url part.
 	 */
-	protected static function filter_post_types( $public_post_type ) {
-		return ! ( $public_post_type === 'attachment' );
+	public static function get_url_part( $url, $part ) {
+		$url_parts = wp_parse_url( $url );
+
+		if ( isset( $url_parts[ $part ] ) ) {
+			return $url_parts[ $part ];
+		}
+
+		return '';
 	}
 }

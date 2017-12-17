@@ -8,8 +8,8 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: Share buttons, Social Sharing, social media, Facebook, Twitter, Subscribe, Traffic posts, pages, widget, social share buttons, analytics, email
 Requires at least: 3.6+
-Tested up to: 4.7.3
-Stable tag: 3.4.2
+Tested up to: 4.9
+Stable tag: 3.4.7
 
 Social Media Share Buttons for Twitter, Facebook and other social networks. Highly customizable Social Media ecosystem
 
@@ -246,7 +246,33 @@ Read here more about this: http://docs.mashshare.net/article/10-facebook-is-show
 
 == Changelog ==
 
+= 3.4.7 =
+* Fix: 100% PHP7 compatibility! No more warnings with php7 compatibility checker
+
+= 3.4.6 =
+* New: Make use of Twitter character limit of 280 characters. 
+* Tweak: Compatible up to WordPress 4.9
+
+= 3.4.5 =
+* New: Create custom values for open graph meta tag og:type, e.g video, product
+* Fix: undefined var title
+* Fix: Pinterest popup not opening when network add-on is not installed
+* Fix: Remove deprecated code and make mashsb.js smaller
+* Fix: Facebook access token validation function not working
+
+= 3.4.4 =
+* Fix: Check fb access token not working properly
+
+= 3.4.3 =
+* Fix: Facebook and twitter buttons missing on multisite activations when bimber theme is used
+* Fix: Whatsapp button not shown on sticky sharebar add-on when network add-on is not installed
+* Tweak: Return a more clear error notice when access token is not valid.
+
 = 3.4.2 =
+* Tweak: Better admin descriptions
+* New: Tested up to WP 4.8
+
+= 3.4.1 =
 * New: Support for PHPUnit 6
 * Fix: Move invisible sub menus from dashboard to MashShare menu section to prevent confusion if a plugin like Menu Editor Pro is active which makes even invisible menu entries visible
 
@@ -267,5 +293,5 @@ https://www.mashshare.net/changelog/
 
 == Upgrade Notice ==
 
-= 3.1.9 =
-3.1.9  <strong>IMPORTANT UPDATE - Update explictely recommended to get accurate share count because of latest changes in facebook API. </strong> <a href="https://wordpress.org/plugins/mashsharer/changelog/" style="color:white;text-decoration: underline;">Read Changelog.</a>
+= 3.4.7 =
+3.4.7 * 100% php7 compatibility! Make use of Twitter character limit of 280 characters. Compatible up to WordPress 4.9
