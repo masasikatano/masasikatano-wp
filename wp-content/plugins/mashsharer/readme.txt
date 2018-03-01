@@ -9,7 +9,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: Share buttons, Social Sharing, social media, Facebook, Twitter, Subscribe, Traffic posts, pages, widget, social share buttons, analytics, email
 Requires at least: 3.6+
 Tested up to: 4.9
-Stable tag: 3.4.7
+Stable tag: 3.4.9
 
 Social Media Share Buttons for Twitter, Facebook and other social networks. Highly customizable Social Media ecosystem
 
@@ -246,6 +246,19 @@ Read here more about this: http://docs.mashshare.net/article/10-facebook-is-show
 
 == Changelog ==
 
+= 3.4.9 =
+* New: Add new short code parameter [mashshare icons=1] allows to show icon buttons only
+* Fix: Remove access token notice
+* Tweak: Lower request break to 5min if facebook api req/hours limits are reached
+
+= 3.4.8 =
+* New: Extend shortcode and allow selection of certain networks and button size [mashshare networks="facebook,twitter,linkedin" services="3" size="small"]
+* Tweak: Remove Facebook Access Token. Will be replaced by queue processing soon to prevent exceeding facebook api limits
+* Tweak: Clean up debug mode
+* Tweak: Clean up Welcome page
+* Tweak: Clean up sidebar
+* Fix: Tweet button
+
 = 3.4.7 =
 * Fix: 100% PHP7 compatibility! No more warnings with php7 compatibility checker
 
@@ -293,5 +306,5 @@ https://www.mashshare.net/changelog/
 
 == Upgrade Notice ==
 
-= 3.4.7 =
-3.4.7 * 100% php7 compatibility! Make use of Twitter character limit of 280 characters. Compatible up to WordPress 4.9
+= 3.4.8 =
+3.4.8 * New shortcode options. Preparations for new MashShare count queue processing. Compatible up to WordPress 4.9.2
