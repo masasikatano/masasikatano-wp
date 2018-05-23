@@ -8,7 +8,7 @@
     Plugin URI: http://enlighterjs.org
     License: MIT X11-License
     
-    Copyright (c) 2013-2016, Andi Dittrich
+    Copyright (c) 2013-2018, Andi Dittrich
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
     
@@ -98,7 +98,13 @@ class Enlighter{
                 // ignore bulk actions - additional redirect check
                 // current page has to be the plugin update dialog!
                 if ($deleted && !isset($_GET['activate-multi'])){
-                    wp_redirect('admin.php?page=Enlighter-About');
+
+                    // disable browser caching
+                    nocache_headers();
+
+                    // redirect to About Page
+                    wp_redirect(admin_url('admin.php?page=Enlighter-About'), 307);
+                    
                     exit;
                 }
             }
@@ -190,6 +196,23 @@ class Enlighter{
     public function setupFrontend(){
         // load frontend css+js resources - highlighting engine
         $this->_resourceLoader->frontendEnlighter();
+
+        // frontend resource optimization ?
+        if ($this->_settingsUtility->getOption('dynamicResourceInvocation')){
+            // php 5.3 compatibility
+            $T = $this;
+
+            // deregister footer scripts
+            add_action('wp_footer', function() use ($T){
+                // enlighter codeblocks active within current page ?
+                $enlighterCodeFound = $T->_contentProcessor->hasContent() || ($T->_shortcodeHandler !== null && $T->_shortcodeHandler->hasContent());
+
+                // disable
+                if ($enlighterCodeFound === false){
+                    $T->_resourceLoader->disableFrontendScripts();
+                }
+            }, 1);
+        }
 
         // check frontend user privileges
         $canEdit = is_user_logged_in() && (current_user_can('edit_posts') || current_user_can('edit_pages'));

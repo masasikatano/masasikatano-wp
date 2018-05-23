@@ -50,6 +50,13 @@ class PluginConfig{
         'gfmFilterComments' => false,
         'gfmFilterCommentsExcerpt' => false,
         'gfmFilterWidgetText' => false,
+
+        'compatDefaultLanguage' => 'generic',
+        'compatFilterContent' => false,
+        'compatFilterExcerpt' => false,
+        'compatFilterComments' => false,
+        'compatFilterCommentsExcerpt' => false,
+        'compatFilterWidgetText' => false,
         
         'editorFontFamily' => '"Source Code Pro", "Liberation Mono", "Courier New", Courier, monospace',
         'editorFontSize' => '0.7em',
@@ -99,7 +106,9 @@ class PluginConfig{
         'extJetpackInfiniteScroll' => false,
 
         'bbpressShortcode' => false,
-        'bbpressMarkdown' => false
+        'bbpressMarkdown' => false,
+
+        'dynamicResourceInvocation' => false
     );
     
     public static function getDefaults(){

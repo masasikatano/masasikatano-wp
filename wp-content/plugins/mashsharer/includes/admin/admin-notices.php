@@ -47,11 +47,12 @@ function mashsb_admin_messages() {
         return;
     }
     
+    mashsb_show_update_notice_gdpr();
+    
     // Rate Limit warning
 //    if( mashsb_is_admin_page() && mashsb_rate_limit_exceeded() ) {
 //        echo '<div class="error">';
-//        //echo '<p>' . sprintf(__('Your website exceeded the Facebook rate limit. Share count requests to Facebook and other networks will be delayed for 30min and the Share Count will not grow during this time. If you see this notice often consider to change <strong>MashShare Caching Method</strong> to <a href="%s">Refresh while Loading</a> and use a higher cache expiration. Also create an facebook access token and add it in <a href="%s">Settings->Facebook User Access Token</a> MashShare tries again to request shares in ' . mashsbGetRemainingRateLimitTime() , 'mashsb'), admin_url() . 'admin.php?page=mashsb-settings#mashsb_settingsgeneral_header', admin_url() . 'admin.php?page=mashsb-settings#mashsb_settingsservices_header') . '</p>';
-//        echo '<p>' . sprintf(__('Your website exceeded the Facebook rate limit. Share count requests to Facebook and other networks will be delayed for 30min and the Share Count will not grow during this time. If you see this notice often consider to change <strong>MashShare Caching Method</strong> to <a href="%s">Refresh while Loading</a> and use a higher cache expiration. MashShare tries again to get shares in ' . mashsbGetRemainingRateLimitTime() , 'mashsb'), admin_url() . 'admin.php?page=mashsb-settings#mashsb_settingsgeneral_header', admin_url() . 'admin.php?page=mashsb-settings#mashsb_settingsservices_header') . '</p>';
+//        echo '<p>' . sprintf(__('Your website exceeded the Facebook rate limit. Share count requests to Facebook and other networks will be delayed for 60min and the Share Count will not grow during this time. If you get this notice often consider to change <strong>MashShare Caching Method</strong> to <a href="%s">Refresh while Loading</a> and use a higher cache expiration. MashShare tries again to get shares in ' . mashsbGetRemainingRateLimitTime() , 'mashsb'), admin_url() . 'admin.php?page=mashsb-settings#mashsb_settingsgeneral_header', admin_url() . 'admin.php?page=mashsb-settings#mashsb_settingsservices_header') . '</p>';
 //        echo '</div>';
 //    }
     // Access Token expired
@@ -78,7 +79,7 @@ function mashsb_admin_messages() {
     
     if( mashsb_is_admin_page() && !mashsb_curl_installed() ) {
         echo '<div class="error">';
-        echo '<p>' . sprintf(__('MashShare needs the PHP extension cURL and curl_multi_init() which is not installed on your server. Please <a href="%s" target="_blank">install and activate</a> it to be able to collect share count of your posts.', 'mashsb'), 'https://www.google.com/search?btnG=1&pws=0&q=enable+curl+on+php') . '</p>';
+        echo '<p>' . sprintf(__('MashShare needs the PHP extension cURL and curl_multi_init() which is not installed on your server. Please <a href="%s" target="_blank" rel="noopener">install and activate</a> it to be able to collect share count of your posts.', 'mashsb'), 'https://www.google.com/search?btnG=1&pws=0&q=enable+curl+on+php') . '</p>';
         echo '</div>';
     }
 
@@ -101,11 +102,11 @@ function mashsb_admin_messages() {
         echo '</div>';
     }
     // Check google API key  
-    if( mashsb_is_admin_page() && ( mashsb_check_google_apikey() && isset( $mashsb_options['mashsu_methods'] ) && $mashsb_options['mashsu_methods'] === 'google' ) ) {
-        echo '<div class="error">';
-        echo '<p>' . sprintf( __( 'Google API key is invalid. Go to <a href="%s"><i>Mashshare->Settings->Short URL Integration</i></a> and check the Google API key.', 'mashsb' ), admin_url( 'admin.php?page=mashsb-settings#mashsb_settingsshorturl_header' ) ) . '</p>';
-        echo '</div>';
-    }
+//    if( mashsb_is_admin_page() && ( mashsb_check_google_apikey() && isset( $mashsb_options['mashsu_methods'] ) && $mashsb_options['mashsu_methods'] === 'google' ) ) {
+//        echo '<div class="error">';
+//        echo '<p>' . sprintf( __( 'Google API key is invalid. Go to <a href="%s"><i>Mashshare->Settings->Short URL Integration</i></a> and check the Google API key.', 'mashsb' ), admin_url( 'admin.php?page=mashsb-settings#mashsb_settingsshorturl_header' ) ) . '</p>';
+//        echo '</div>';
+//    }
     // Check Bitly API key  
     if( mashsb_is_admin_page() && (false === mashsb_check_bitly_apikey() && isset( $mashsb_options['mashsu_methods'] ) && $mashsb_options['mashsu_methods'] === 'bitly' ) ) {
         echo '<div class="error">';
@@ -432,4 +433,42 @@ function mashsb_is_invalid_fb_api_key(){
     } else {
         return $status;
     }
+} 
+
+
+/**
+ * Return update notice for gdpr compliance
+ * @since 3.5.3.0
+ */
+function mashsb_show_update_notice_gdpr() {
+    
+    
+    $message = sprintf(__( '<h2 style="color:white;">MashShare GDPR Compliance</h2>'
+            . 'MashShare share count should be disabled due to european GDPR requirements. <br>If you still like to enable share count beside share buttons go to <a href="'.admin_url().'admin.php?page=mashsb-settings" style="color:white;">MashShare > Settings > Disable Sharecount</a><br><br>Enabling the share count aggregation is not GDPR compliant and is not recommended if your website must be GDPR conform.'
+            , 'mashsb' ), 
+            admin_url() . 'admin.php?page=mashsb-settings'
+            );
+      
+        if( get_option( 'mashsb_show_update_notice_gdpr' ) === 'no' ) {
+           return false;
+        }
+  
+        // admin notice after updating Mashshare
+        echo '<div class="mashsb-notice-gdpr mashsb_update_notice_gdpr update-nag" style="background-color: #00abed;color: white;padding: 20px;margin-top: 20px;border: 3px solid white;">' . $message . 
+        '<p><a href="'.admin_url().'admin.php?page=mashsb-settings&mashsb-action=hide_gdpr_notice" class="mashsb_hide_gdpr" title="I got it" style="text-decoration:none;color:white;">- I Understand! Do Not Show This Message Again -</a></a>'.
+            '</div>';
+       
+    
 }
+
+/**
+ * Hide GDPR notice
+ * 
+ * @global array $mashsb_options
+ */
+function mashsb_hide_gdpr_notice(){
+        global $mashsb_options;
+        // Get all settings
+        update_option( 'mashsb_show_update_notice_gdpr', 'no' );
+}
+add_action ('mashsb_hide_gdpr_notice', 'mashsb_hide_gdpr_notice');

@@ -1,8 +1,8 @@
 <?php
 /**
- * Author: Alin Marcu
- * Author URI: https://deconf.com
- * Copyright 2013 Alin Marcu
+ * Author: ExactMetrics team
+ * Author URI: https://exactmetrics.com
+ * Copyright 2018 ExactMetrics team
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
@@ -87,6 +87,8 @@ class GADWP_Install {
 			$options['with_endpoint'] = 1;
 			$options['ga_optout'] = 0;
 			$options['ga_dnt_optout'] = 0;
+			$options['tm_optout'] = 0;
+			$options['tm_dnt_optout'] = 0;
 			$options['ga_with_gtag'] = 0;
 		} else {
 			$options = array();
@@ -160,6 +162,8 @@ class GADWP_Install {
 			$options['with_endpoint'] = 1;
 			$options['ga_optout'] = 0;
 			$options['ga_dnt_optout'] = 0;
+			$options['tm_optout'] = 0;
+			$options['tm_dnt_optout'] = 0;
 			$options['ga_with_gtag'] = 0;
 
 			delete_option( 'ga_dash_clientid' );

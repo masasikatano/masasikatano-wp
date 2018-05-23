@@ -2,13 +2,14 @@
 /**
     Plugin Name: Enlighter - Customizable Syntax Highlighter
     Plugin URI: https://enlighterjs.org
+    Domain Path: /lang
     Description: Enlighter is a free, easy-to-use, syntax highlighting tool with a build-in theme editor.
-    Version: 3.5
+    Version: 3.6
     Author: Andi Dittrich
     Author URI: https://andidittrich.de
     License: MIT X11-License
     
-    Copyright (c) 2013-2017, Andi Dittrich
+    Copyright (c) 2013-2018, Andi Dittrich
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
     
@@ -22,7 +23,7 @@
 */
 
 define('ENLIGHTER_INIT', true);
-define('ENLIGHTER_VERSION', '3.5');
+define('ENLIGHTER_VERSION', '3.6');
 define('ENLIGHTER_PLUGIN_PATH', dirname(__FILE__));
 define('ENLIGHTER_PLUGIN_URL', plugins_url('/enlighter/'));
 
@@ -46,6 +47,7 @@ if (version_compare(phpversion(), '5.3', '>=')){
     require_once(ENLIGHTER_PLUGIN_PATH.'/class/LegacyShortcodeHandler.php');
     require_once(ENLIGHTER_PLUGIN_PATH.'/class/ContentProcessor.php');
     require_once(ENLIGHTER_PLUGIN_PATH.'/class/ShortcodeFilter.php');
+    require_once(ENLIGHTER_PLUGIN_PATH.'/class/CompatibilityModeFilter.php');
     require_once(ENLIGHTER_PLUGIN_PATH.'/class/GfmFilter.php');
     require_once(ENLIGHTER_PLUGIN_PATH.'/class/ResourceLoader.php');
     require_once(ENLIGHTER_PLUGIN_PATH.'/class/ResourceManager.php');
